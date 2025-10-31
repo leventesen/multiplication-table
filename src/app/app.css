@@ -97,7 +97,7 @@
   color: #333;
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.3s ease;
   text-shadow: none;
   letter-spacing: 1px;
   min-height: 100px;
@@ -105,21 +105,30 @@
   align-items: center;
   justify-content: center;
   outline: none;
+  /* Mobil dokunma efektlerini kaldır */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Hover stillerini güçlü selectors ile override et */
 .answer-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 /* Focus durumları */
 .answer-btn:focus {
   outline: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .answer-btn:active {
-  transform: translateY(0);
+  /* Active durumda da animasyon yok */
+  transform: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* Disabled buton stili */
@@ -134,6 +143,19 @@
 .answer-btn.disabled:hover {
   transform: none;
   box-shadow: none;
+}
+
+/* Mobilde ekstra dokunma efektlerini engelle */
+@media (hover: none) and (pointer: coarse) {
+  .answer-btn:hover {
+    box-shadow: none;
+    transform: none;
+  }
+  
+  .answer-btn:active {
+    box-shadow: none;
+    transform: none;
+  }
 }
 
 /* Mobil uyumluluk */
