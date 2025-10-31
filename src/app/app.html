@@ -1,0 +1,23 @@
+<div class="game-container">
+  <!-- Puan Gösterimi -->
+  <div class="score-section">
+    <h1 class="score" [class.score-green]="isScoreGreen" [class.score-red]="isScoreRed">Score: {{score}}</h1>
+  </div>
+
+  <!-- Soru -->
+  <div class="question-section">
+    <h2 class="question">{{currentQuestion.first}} × {{currentQuestion.second}}</h2>
+  </div>
+
+  <!-- Cevap Butonları -->
+  <div class="answers-section">
+    <button 
+      mat-raised-button 
+      class="answer-btn"
+      *ngFor="let answer of currentAnswers"
+      (click)="selectAnswer(answer)"
+      [disabled]="showResult && !isAnsweredCorrectly && answer !== correctAnswer">
+      {{answer}}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,171 @@
+/* Serifsiz oval font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.game-container {
+  font-family: 'Nunito', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Puan Bölümü */
+.score-section {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.score {
+  font-size: 3rem;
+  font-weight: 900;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  transition: background-color 0.35s ease-in-out;
+}
+
+.score.score-green {
+  background: rgba(76, 175, 80, 0.8);
+}
+
+.score.score-red {
+  background: rgba(244, 67, 54, 0.8);
+}
+
+/* Soru Bölümü */
+.question-section {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.question {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 0;
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.2);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 3px;
+}
+
+/* Cevap Butonları */
+.answers-section {
+  width: 100%;
+  max-width: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.answer-btn {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  padding: 25px !important;
+  border-radius: 20px !important;
+  background: rgba(255,255,255,0.9) !important;
+  color: #333 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-shadow: none !important;
+  letter-spacing: 1px !important;
+  min-height: 100px !important;
+}
+
+.answer-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
+  background: rgba(255,255,255,1) !important;
+}
+
+.answer-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* Disabled buton stili */
+.answer-btn:disabled {
+  background: rgba(255,255,255,0.3) !important;
+  color: rgba(255,255,255,0.5) !important;
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}
+
+.answer-btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  background: rgba(255,255,255,0.3) !important;
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 15px;
+  }
+  
+  .score {
+    font-size: 2.5rem;
+    padding: 25px;
+    border-radius: 20px;
+  }
+  
+  .question {
+    font-size: 3rem;
+    padding: 25px;
+    border-radius: 20px;
+  }
+  
+  .answer-btn {
+    font-size: 2rem !important;
+    padding: 20px !important;
+    min-height: 87.5px !important;
+  }
+  
+  .answers-section {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .score {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+  
+  .question {
+    font-size: 2.5rem;
+    padding: 20px;
+    letter-spacing: 2px;
+  }
+  
+  .answer-btn {
+    font-size: 1.8rem !important;
+    padding: 18px !important;
+    min-height: 81.25px !important;
+    border-radius: 15px !important;
+  }
+  
+  .answers-section {
+    gap: 12px;
+  }
+}
