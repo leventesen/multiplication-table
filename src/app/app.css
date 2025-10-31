@@ -115,6 +115,33 @@
 .answer-btn:hover {
   transform: translateY(-3px) !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
+  background: rgba(255,255,255,0.9) !important;
+}
+
+.answer-btn:focus {
+  background: rgba(255,255,255,0.9) !important;
+  outline: none !important;
+}
+
+.answer-btn.mat-mdc-button:not(:disabled) {
+  color: #333 !important;
+}
+
+.answer-btn.mat-mdc-button:hover .mat-mdc-button-persistent-ripple::before {
+  opacity: 0 !important;
+}
+
+/* Material UI ripple efektlerini kaldır */
+.answer-btn .mat-ripple-element {
+  display: none !important;
+}
+
+.answer-btn .mat-mdc-button-ripple {
+  display: none !important;
+}
+
+.answer-btn .mat-mdc-button-persistent-ripple {
+  display: none !important;
 }
 
 .answer-btn:active {
