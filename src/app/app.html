@@ -11,12 +11,16 @@
 
   <!-- Cevap Butonları -->
   <div class="answers-section">
-    <button 
+    <div 
       class="answer-btn"
+      role="button"
+      [tabindex]="(showResult && !isAnsweredCorrectly && answer !== correctAnswer) ? -1 : 0"
       *ngFor="let answer of currentAnswers"
       (click)="selectAnswer(answer)"
-      [disabled]="showResult && !isAnsweredCorrectly && answer !== correctAnswer">
+      (keydown.enter)="selectAnswer(answer)"
+      (keydown.space)="selectAnswer(answer)"
+      [class.disabled]="showResult && !isAnsweredCorrectly && answer !== correctAnswer">
       {{answer}}
-    </button>
+    </div>
   </div>
 </div>
