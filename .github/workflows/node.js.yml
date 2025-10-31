@@ -37,7 +37,13 @@ jobs:
       run: npm install @angular/animations@^20.3.0
       
     - name: Build Angular app
-      run: npm run build -- --output-path=dist --base-href="/multiplication-table/"
+      run: npm run build -- --base-href="/multiplication-table/"
+      
+    - name: List build output (debug)
+      run: |
+        ls -la dist/
+        ls -la dist/multiplication-table/ || echo "multiplication-table folder not found"
+        ls -la dist/multiplication-table/browser/ || echo "browser folder not found"
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -45,7 +51,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: './dist/multiplication-table'
+        path: './dist/multiplication-table/browser'
 
   deploy:
     environment:
