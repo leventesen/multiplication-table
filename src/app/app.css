@@ -1,12 +1,5 @@
-/* Serifsiz oval font */
+/* Serifsiz oval font - optimize edilmiş */
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
-
-/* Font yüklenmesini garanti et */
-@font-face {
-  font-family: 'Nunito';
-  src: url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
-  font-display: swap;
-}
 
 * {
   box-sizing: border-box;
