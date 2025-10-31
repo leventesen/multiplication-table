@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   imports: [
-    CommonModule,
-    MatButtonModule
+    CommonModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

@@ -87,102 +87,52 @@
 }
 
 /* Material UI override - çok güçlü selectors */
-.answer-btn,
-button.answer-btn,
-.mat-mdc-button.answer-btn,
-.mat-mdc-raised-button.answer-btn {
-  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif !important;
-  font-size: 2.5rem !important;
-  font-weight: 800 !important;
-  padding: 25px !important;
-  border-radius: 20px !important;
-  background: rgba(255,255,255,0.9) !important;
-  color: #333 !important;
-  border: none !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  text-shadow: none !important;
-  letter-spacing: 1px !important;
-  min-height: 100px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+.answer-btn {
+  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: none;
+  letter-spacing: 1px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
 }
 
 /* Hover stillerini güçlü selectors ile override et */
-.answer-btn:hover,
-button.answer-btn:hover,
-.mat-mdc-button.answer-btn:hover,
-.mat-mdc-raised-button.answer-btn:hover,
-.answers-section .answer-btn:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3) !important;
-  background: rgba(255,255,255,0.9) !important;
-  color: #333 !important;
+.answer-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 /* Focus durumları */
-.answer-btn:focus,
-button.answer-btn:focus,
-.mat-mdc-button.answer-btn:focus,
-.mat-mdc-raised-button.answer-btn:focus {
-  background: rgba(255,255,255,0.9) !important;
-  outline: none !important;
-  color: #333 !important;
+.answer-btn:focus {
+  outline: none;
 }
 
-/* Material UI tüm efektlerini tamamen kaldır */
-.answer-btn .mat-ripple-element,
-.answer-btn .mat-mdc-button-ripple,
-.answer-btn .mat-mdc-button-persistent-ripple,
-.answer-btn .mat-mdc-button-persistent-ripple::before,
-.answer-btn .mdc-button__ripple,
-.answer-btn .mat-mdc-focus-indicator,
-button.answer-btn .mat-ripple-element,
-button.answer-btn .mat-mdc-button-ripple,
-button.answer-btn .mat-mdc-button-persistent-ripple,
-button.answer-btn .mat-mdc-button-persistent-ripple::before,
-button.answer-btn .mdc-button__ripple,
-button.answer-btn .mat-mdc-focus-indicator {
-  display: none !important;
-  opacity: 0 !important;
-  background: transparent !important;
-  pointer-events: none !important;
-}
-
-/* Material UI theme renklerini override et */
-.answer-btn.mat-primary,
-.answer-btn.mat-accent,
-.answer-btn.mat-warn,
-button.answer-btn.mat-primary,
-button.answer-btn.mat-accent,
-button.answer-btn.mat-warn {
-  background: rgba(255,255,255,0.9) !important;
-  color: #333 !important;
-}
-
-.answer-btn.mat-primary:hover,
-.answer-btn.mat-accent:hover,
-.answer-btn.mat-warn:hover,
-button.answer-btn.mat-primary:hover,
-button.answer-btn.mat-accent:hover,
-button.answer-btn.mat-warn:hover {
-  background: rgba(255,255,255,0.9) !important;
-  color: #333 !important;
+.answer-btn:active {
+  transform: translateY(0);
 }
 
 /* Disabled buton stili */
 .answer-btn:disabled {
-  background: rgba(255,255,255,0.3) !important;
-  color: rgba(255,255,255,0.5) !important;
-  cursor: not-allowed !important;
+  background: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.5);
+  cursor: not-allowed;
   opacity: 0.5;
 }
 
 .answer-btn:disabled:hover {
-  transform: none !important;
-  box-shadow: none !important;
-  background: rgba(255,255,255,0.3) !important;
+  transform: none;
+  box-shadow: none;
 }
 
 /* Mobil uyumluluk */
