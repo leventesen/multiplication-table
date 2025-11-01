@@ -1,26 +1,29 @@
 <div class="game-container">
-  <!-- Puan Gösterimi -->
-  <div class="score-section">
-    <h1 class="score" [class.score-green]="isScoreGreen" [class.score-red]="isScoreRed">Score: {{score}}</h1>
-  </div>
+	<!-- Puan Gösterimi -->
+	<div class="score-section">
+		<h1 class="score" [class.score-green]="isScoreGreen" [class.score-red]="isScoreRed">
+			Score: {{ score }}
+		</h1>
+	</div>
 
-  <!-- Soru -->
-  <div class="question-section">
-    <h2 class="question">{{currentQuestion.first}} × {{currentQuestion.second}}</h2>
-  </div>
+	<!-- Soru -->
+	<div class="question-section">
+		<h2 class="question">{{ currentQuestion.first }} × {{ currentQuestion.second }}</h2>
+	</div>
 
-  <!-- Cevap Butonları -->
-  <div class="answers-section">
-    <div 
-      class="answer-btn"
-      role="button"
-      [tabindex]="(showResult && !isAnsweredCorrectly && answer !== correctAnswer) ? -1 : 0"
-      *ngFor="let answer of currentAnswers"
-      (click)="selectAnswer(answer)"
-      (keydown.enter)="selectAnswer(answer)"
-      (keydown.space)="selectAnswer(answer)"
-      [class.disabled]="showResult && !isAnsweredCorrectly && answer !== correctAnswer">
-      {{answer}}
-    </div>
-  </div>
+	<!-- Cevap Butonları -->
+	<div class="answers-section">
+		<div
+			class="answer-btn"
+			role="button"
+			[tabindex]="showResult && !isAnsweredCorrectly && answer !== correctAnswer ? -1 : 0"
+			*ngFor="let answer of currentAnswers"
+			(click)="selectAnswer(answer)"
+			(keydown.enter)="selectAnswer(answer)"
+			(keydown.space)="selectAnswer(answer)"
+			[class.disabled]="showResult && !isAnsweredCorrectly && answer !== correctAnswer"
+		>
+			{{ answer }}
+		</div>
+	</div>
 </div>

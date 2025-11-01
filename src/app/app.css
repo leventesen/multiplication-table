@@ -2,217 +2,217 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .game-container {
-  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 800;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+	font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 800;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 20px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: white;
 }
 
 /* Puan Bölümü */
 .score-section {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+	width: 100%;
+	max-width: 500px;
+	text-align: center;
 }
 
 .score {
-  font-size: 3rem;
-  font-weight: 900;
-  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  letter-spacing: 2px;
-  background: rgba(255,255,255,0.1);
-  padding: 30px;
-  border-radius: 25px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.2);
-  transition: background-color 0.35s ease-in-out;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	font-size: 3rem;
+	font-weight: 900;
+	font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+	margin: 0;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	letter-spacing: 2px;
+	background: rgba(255, 255, 255, 0.1);
+	padding: 30px;
+	border-radius: 25px;
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	transition: background-color 0.35s ease-in-out;
+	min-height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .score.score-green {
-  background: rgba(76, 175, 80, 0.8);
+	background: rgba(76, 175, 80, 0.8);
 }
 
 .score.score-red {
-  background: rgba(244, 67, 54, 0.8);
+	background: rgba(244, 67, 54, 0.8);
 }
 
 /* Soru Bölümü */
 .question-section {
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+	width: 100%;
+	max-width: 500px;
+	text-align: center;
 }
 
 .question {
-  font-size: 4rem;
-  font-weight: 800;
-  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
-  margin: 0;
-  background: rgba(255,255,255,0.1);
-  padding: 30px;
-  border-radius: 25px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.2);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  letter-spacing: 3px;
-  min-height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	font-size: 4rem;
+	font-weight: 800;
+	font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+	margin: 0;
+	background: rgba(255, 255, 255, 0.1);
+	padding: 30px;
+	border-radius: 25px;
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	letter-spacing: 3px;
+	min-height: 140px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Cevap Butonları */
 .answers-section {
-  width: 100%;
-  max-width: 500px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+	width: 100%;
+	max-width: 500px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
 }
 
 /* Material UI override - çok güçlü selectors */
 .answer-btn {
-  font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 2.5rem;
-  font-weight: 800;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.9);
-  color: #333;
-  border: none;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
-  text-shadow: none;
-  letter-spacing: 1px;
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  /* Mobil dokunma efektlerini kaldır */
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	font-family: 'Nunito', 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 2.5rem;
+	font-weight: 800;
+	padding: 25px;
+	border-radius: 20px;
+	background: rgba(255, 255, 255, 0.9);
+	color: #333;
+	border: none;
+	cursor: pointer;
+	transition: box-shadow 0.3s ease;
+	text-shadow: none;
+	letter-spacing: 1px;
+	min-height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+	/* Mobil dokunma efektlerini kaldır */
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 /* Hover stillerini güçlü selectors ile override et */
 .answer-btn:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Focus durumları */
 .answer-btn:focus {
-  outline: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+	outline: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .answer-btn:active {
-  /* Active durumda da animasyon yok */
-  transform: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	/* Active durumda da animasyon yok */
+	transform: none;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Disabled buton stili */
 .answer-btn.disabled {
-  background: rgba(255,255,255,0.3);
-  color: rgba(255,255,255,0.5);
-  cursor: not-allowed;
-  opacity: 0.5;
-  pointer-events: none;
+	background: rgba(255, 255, 255, 0.3);
+	color: rgba(255, 255, 255, 0.5);
+	cursor: not-allowed;
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .answer-btn.disabled:hover {
-  transform: none;
-  box-shadow: none;
+	transform: none;
+	box-shadow: none;
 }
 
 /* Mobilde ekstra dokunma efektlerini engelle */
 @media (hover: none) and (pointer: coarse) {
-  .answer-btn:hover {
-    box-shadow: none;
-    transform: none;
-  }
-  
-  .answer-btn:active {
-    box-shadow: none;
-    transform: none;
-  }
+	.answer-btn:hover {
+		box-shadow: none;
+		transform: none;
+	}
+
+	.answer-btn:active {
+		box-shadow: none;
+		transform: none;
+	}
 }
 
 /* Mobil uyumluluk */
 @media (max-width: 768px) {
-  .game-container {
-    padding: 15px;
-  }
-  
-  .score {
-    font-size: 2.5rem;
-    padding: 25px;
-    border-radius: 20px;
-    min-height: 100px;
-  }
-  
-  .question {
-    font-size: 3rem;
-    padding: 25px;
-    border-radius: 20px;
-    min-height: 120px;
-  }
-  
-  .answer-btn {
-    font-size: 2rem !important;
-    padding: 20px !important;
-    min-height: 87.5px !important;
-  }
-  
-  .answers-section {
-    gap: 15px;
-  }
+	.game-container {
+		padding: 15px;
+	}
+
+	.score {
+		font-size: 2.5rem;
+		padding: 25px;
+		border-radius: 20px;
+		min-height: 100px;
+	}
+
+	.question {
+		font-size: 3rem;
+		padding: 25px;
+		border-radius: 20px;
+		min-height: 120px;
+	}
+
+	.answer-btn {
+		font-size: 2rem !important;
+		padding: 20px !important;
+		min-height: 87.5px !important;
+	}
+
+	.answers-section {
+		gap: 15px;
+	}
 }
 
 @media (max-width: 480px) {
-  .score {
-    font-size: 2rem;
-    letter-spacing: 1px;
-    padding: 20px;
-    border-radius: 15px;
-    min-height: 80px;
-  }
-  
-  .question {
-    font-size: 2.5rem;
-    padding: 20px;
-    letter-spacing: 2px;
-    min-height: 100px;
-  }
-  
-  .answer-btn {
-    font-size: 1.8rem !important;
-    padding: 18px !important;
-    min-height: 81.25px !important;
-    border-radius: 15px !important;
-  }
-  
-  .answers-section {
-    gap: 12px;
-  }
+	.score {
+		font-size: 2rem;
+		letter-spacing: 1px;
+		padding: 20px;
+		border-radius: 15px;
+		min-height: 80px;
+	}
+
+	.question {
+		font-size: 2.5rem;
+		padding: 20px;
+		letter-spacing: 2px;
+		min-height: 100px;
+	}
+
+	.answer-btn {
+		font-size: 1.8rem !important;
+		padding: 18px !important;
+		min-height: 81.25px !important;
+		border-radius: 15px !important;
+	}
+
+	.answers-section {
+		gap: 12px;
+	}
 }
