@@ -33,6 +33,7 @@ export class App {
 
   constructor() {
     this.initializeQuestions();
+    this.loadProgressFromStorage();
     this.generateNewQuestion();
   }
 
@@ -228,12 +229,18 @@ export class App {
         this.greenTimeout = null;
       }, 650);
       
+      // Progress'i kaydet
+      this.saveProgressToStorage();
+      
       // Hemen yeni soruya geç
       this.generateNewQuestion();
     } else {
       // Yanlış cevap - hız bonusuna göre puan eksilt
       const speedBonus = this.calculateSpeedBonus();
       this.score -= speedBonus;
+      
+      // Progress'i kaydet
+      this.saveProgressToStorage();
       this.isAnsweredCorrectly = false;
       
       // Score'u kırmızıya çevir (0.35s fade in)
@@ -258,5 +265,40 @@ export class App {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+  }
+
+  private saveProgressToStorage(): void {
+    const progress = {
+      score: this.score,
+      currentWindowStart: this.currentWindowStart,
+      lastLevelScore: this.lastLevelScore,
+      timestamp: new Date().getTime()
+    };
+    localStorage.setItem('multiplicationTableProgress', JSON.stringify(progress));
+  }
+
+  private loadProgressFromStorage(): void {
+    try {
+      const progressStr = localStorage.getItem('multiplicationTableProgress');
+      if (progressStr) {
+        const progress = JSON.parse(progressStr);
+        
+        // Kaydedilmiş progress'i yükle (zaman sınırı yok)
+        this.score = progress.score || 0;
+        this.currentWindowStart = progress.currentWindowStart || 0;
+        this.lastLevelScore = progress.lastLevelScore || 0;
+      }
+    } catch (error) {
+      console.warn('Progress yüklenirken hata:', error);
+      this.resetProgress();
+    }
+  }
+
+  resetProgress(): void {
+    this.score = 0;
+    this.currentWindowStart = 0;
+    this.lastLevelScore = 0;
+    localStorage.removeItem('multiplicationTableProgress');
+    this.generateNewQuestion();
   }
 }
