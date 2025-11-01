@@ -29,10 +29,15 @@ export class App {
   lastLevelScore: number = 0; // Son seviye atladığımız puan
   lastQuestion: {first: number, second: number} | null = null; // Son sorulan soru
   lastAnswerPositions: number[] = []; // Son buton pozisyonları
+  
+  // Adaptif öğrenme sistemi - her sorunun puan geçmişi
+  questionScores: number[][] = []; // Her soru için puan listesi
+  currentQuestionIndex: number = -1; // Şu anki sorunun indexi
   questionStartTime: number = 0; // Soru başlangıç zamanı
 
   constructor() {
     this.initializeQuestions();
+    this.initializeQuestionScores();
     this.loadProgressFromStorage();
     this.generateNewQuestion();
   }
@@ -49,6 +54,14 @@ export class App {
           this.allQuestions.push({first, second});
         }
       }
+    }
+  }
+
+  initializeQuestionScores() {
+    // Her soru için boş puan listesi oluştur
+    this.questionScores = [];
+    for (let i = 0; i < this.allQuestions.length; i++) {
+      this.questionScores.push([]);
     }
   }
 
@@ -159,43 +172,35 @@ export class App {
     // Progresif zorluk sistemi - her 100 puanda pencereyi 3 ileri kaydır
     this.updateDifficultyLevel();
     
-    let availableQuestions: {first: number, second: number}[];
+    let selectedQuestion: {first: number, second: number};
     
     // Pencere sona geldiyse %100 geçmiş sorulardan seç
     const isAtEnd = this.currentWindowStart >= this.allQuestions.length - this.windowSize;
     
     if (isAtEnd) {
-      // Pencere sona geldi - sadece geçmiş sorulardan seç
-      availableQuestions = this.allQuestions.slice(0, this.currentWindowStart);
+      // Pencere sona geldi - adaptif seçimle geçmiş sorulardan seç
+      selectedQuestion = this.selectQuestionAdaptively(0, this.currentWindowStart);
     } else {
       // Pencere devam ediyor - %20 geçmiş, %80 mevcut pencere
       const shouldUseHistoricalQuestion = this.currentWindowStart > 0 && Math.random() < 0.2;
       
       if (shouldUseHistoricalQuestion) {
-        // Geçmiş sorulardan seç (0'dan currentWindowStart'a kadar)
-        availableQuestions = this.allQuestions.slice(0, this.currentWindowStart);
+        // Adaptif seçimle geçmiş sorulardan seç
+        selectedQuestion = this.selectQuestionAdaptively(0, this.currentWindowStart);
       } else {
-        // Mevcut pencereden seç
-        availableQuestions = this.allQuestions.slice(
+        // Mevcut pencereden normal seçim
+        const availableQuestions = this.allQuestions.slice(
           this.currentWindowStart, 
           this.currentWindowStart + this.windowSize
         );
+        selectedQuestion = this.selectDifferentQuestion(availableQuestions);
       }
     }
     
-    let selectedQuestion: {first: number, second: number};
-    
-    if (availableQuestions.length === 0) {
-      // Eğer sorular bittiyse, son seviyeyi tekrarla
-      this.currentWindowStart = Math.max(0, this.allQuestions.length - this.windowSize);
-      const fallbackQuestions = this.allQuestions.slice(
-        this.currentWindowStart, 
-        this.currentWindowStart + this.windowSize
-      );
-      selectedQuestion = this.selectDifferentQuestion(fallbackQuestions);
-    } else {
-      selectedQuestion = this.selectDifferentQuestion(availableQuestions);
-    }
+    // Seçilen sorunun indexini bul
+    this.currentQuestionIndex = this.allQuestions.findIndex(q => 
+      q.first === selectedQuestion.first && q.second === selectedQuestion.second
+    );
     
     this.currentQuestion = selectedQuestion;
     this.lastQuestion = {...selectedQuestion}; // Son soruyu kaydet
@@ -250,12 +255,18 @@ export class App {
       // Progress'i kaydet
       this.saveProgressToStorage();
       
+      // Bu soruya aldığı puanı kaydet
+      this.recordQuestionScore(speedBonus);
+      
       // Hemen yeni soruya geç
       this.generateNewQuestion();
     } else {
       // Yanlış cevap - hız bonusuna göre puan eksilt
       const speedBonus = this.calculateSpeedBonus();
       this.score -= speedBonus;
+      
+      // Bu soruya aldığı puanı kaydet (negatif)
+      this.recordQuestionScore(-speedBonus);
       
       // Progress'i kaydet
       this.saveProgressToStorage();
@@ -290,6 +301,7 @@ export class App {
       score: this.score,
       currentWindowStart: this.currentWindowStart,
       lastLevelScore: this.lastLevelScore,
+      questionScores: this.questionScores,
       timestamp: new Date().getTime()
     };
     localStorage.setItem('multiplicationTableProgress', JSON.stringify(progress));
@@ -305,6 +317,7 @@ export class App {
         this.score = progress.score || 0;
         this.currentWindowStart = progress.currentWindowStart || 0;
         this.lastLevelScore = progress.lastLevelScore || 0;
+        this.questionScores = progress.questionScores || this.questionScores;
       }
     } catch (error) {
       console.warn('Progress yüklenirken hata:', error);
@@ -316,7 +329,87 @@ export class App {
     this.score = 0;
     this.currentWindowStart = 0;
     this.lastLevelScore = 0;
+    // Soru skorlarını da sıfırla
+    this.initializeQuestionScores();
     localStorage.removeItem('multiplicationTableProgress');
     this.generateNewQuestion();
+  }
+
+  // Adaptif öğrenme sistemi metodları
+  recordQuestionScore(score: number): void {
+    if (this.currentQuestionIndex >= 0 && this.currentQuestionIndex < this.questionScores.length) {
+      this.questionScores[this.currentQuestionIndex].push(score);
+      
+      // Sadece son 10 skoru tut (hafıza optimizasyonu)
+      if (this.questionScores[this.currentQuestionIndex].length > 10) {
+        this.questionScores[this.currentQuestionIndex] = 
+          this.questionScores[this.currentQuestionIndex].slice(-10);
+      }
+    }
+  }
+
+  selectQuestionAdaptively(startIndex: number, endIndex: number): {first: number, second: number} {
+    const availableQuestions = this.allQuestions.slice(startIndex, endIndex);
+    
+    if (availableQuestions.length === 0) {
+      // Fallback: mevcut pencereden seç
+      const fallbackQuestions = this.allQuestions.slice(
+        this.currentWindowStart,
+        this.currentWindowStart + this.windowSize
+      );
+      return this.selectDifferentQuestion(fallbackQuestions);
+    }
+
+    // Her soru için ağırlık hesapla
+    const weights: number[] = [];
+    
+    for (let i = startIndex; i < endIndex; i++) {
+      const scores = this.questionScores[i];
+      
+      if (scores.length === 0) {
+        // Hiç sorulmamış soru - orta ağırlık
+        weights.push(1.0);
+      } else {
+        // Ortalama puan hesapla
+        const avgScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+        
+        // Düşük/negatif puan = yüksek ağırlık (daha çok sorulacak)
+        // Negatif puanlar için daha agresif ağırlık
+        let weight: number;
+        if (avgScore < 0) {
+          // Negatif puanlar için çok yüksek ağırlık
+          weight = Math.abs(avgScore) + 2; // -10 → 12 ağırlık
+        } else {
+          // Pozitif puanlar için ters orantılı ağırlık
+          weight = 1 / (avgScore + 1);
+        }
+        weights.push(weight);
+      }
+    }
+
+    // Ağırlıklı rastgele seçim
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (let i = 0; i < weights.length; i++) {
+      random -= weights[i];
+      if (random <= 0) {
+        const selectedQuestion = availableQuestions[i];
+        
+        // Son sorudan farklı olması için kontrol
+        if (this.lastQuestion && 
+            selectedQuestion.first === this.lastQuestion.first && 
+            selectedQuestion.second === this.lastQuestion.second) {
+          // Eğer aynı soru seçildiyse bir sonrakini dene
+          const nextIndex = (i + 1) % availableQuestions.length;
+          return availableQuestions[nextIndex];
+        }
+        
+        return selectedQuestion;
+      }
+    }
+    
+    // Fallback (teorik olarak ulaşılmamalı)
+    return availableQuestions[0];
   }
 }
