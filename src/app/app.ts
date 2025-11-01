@@ -159,11 +159,22 @@ export class App {
     // Progresif zorluk sistemi - her 100 puanda pencereyi 3 ileri kaydır
     this.updateDifficultyLevel();
     
-    // Mevcut pencereden rastgele soru seç (son sorudan farklı olacak şekilde)
-    const availableQuestions = this.allQuestions.slice(
-      this.currentWindowStart, 
-      this.currentWindowStart + this.windowSize
-    );
+    let availableQuestions: {first: number, second: number}[];
+    
+    // %20 olasılıkla geçmiş sorulardan, %80 olasılıkla mevcut pencereden soru seç
+    // Başlangıçta (currentWindowStart = 0) geçmiş soru olmadığı için %100 mevcut pencere
+    const shouldUseHistoricalQuestion = this.currentWindowStart > 0 && Math.random() < 0.2;
+    
+    if (shouldUseHistoricalQuestion) {
+      // Geçmiş sorulardan seç (0'dan currentWindowStart'a kadar)
+      availableQuestions = this.allQuestions.slice(0, this.currentWindowStart);
+    } else {
+      // Mevcut pencereden seç
+      availableQuestions = this.allQuestions.slice(
+        this.currentWindowStart, 
+        this.currentWindowStart + this.windowSize
+      );
+    }
     
     let selectedQuestion: {first: number, second: number};
     
