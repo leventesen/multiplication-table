@@ -161,19 +161,26 @@ export class App {
     
     let availableQuestions: {first: number, second: number}[];
     
-    // %20 olasılıkla geçmiş sorulardan, %80 olasılıkla mevcut pencereden soru seç
-    // Başlangıçta (currentWindowStart = 0) geçmiş soru olmadığı için %100 mevcut pencere
-    const shouldUseHistoricalQuestion = this.currentWindowStart > 0 && Math.random() < 0.2;
+    // Pencere sona geldiyse %100 geçmiş sorulardan seç
+    const isAtEnd = this.currentWindowStart >= this.allQuestions.length - this.windowSize;
     
-    if (shouldUseHistoricalQuestion) {
-      // Geçmiş sorulardan seç (0'dan currentWindowStart'a kadar)
+    if (isAtEnd) {
+      // Pencere sona geldi - sadece geçmiş sorulardan seç
       availableQuestions = this.allQuestions.slice(0, this.currentWindowStart);
     } else {
-      // Mevcut pencereden seç
-      availableQuestions = this.allQuestions.slice(
-        this.currentWindowStart, 
-        this.currentWindowStart + this.windowSize
-      );
+      // Pencere devam ediyor - %20 geçmiş, %80 mevcut pencere
+      const shouldUseHistoricalQuestion = this.currentWindowStart > 0 && Math.random() < 0.2;
+      
+      if (shouldUseHistoricalQuestion) {
+        // Geçmiş sorulardan seç (0'dan currentWindowStart'a kadar)
+        availableQuestions = this.allQuestions.slice(0, this.currentWindowStart);
+      } else {
+        // Mevcut pencereden seç
+        availableQuestions = this.allQuestions.slice(
+          this.currentWindowStart, 
+          this.currentWindowStart + this.windowSize
+        );
+      }
     }
     
     let selectedQuestion: {first: number, second: number};
