@@ -65,9 +65,9 @@ export class App {
 	}
 
 	updateDifficultyLevel() {
-		// Her 100 puanda 3 soru ileri kaydır
-		const newLevel = Math.floor(this.score / 100);
-		const currentLevel = Math.floor(this.lastLevelScore / 100);
+		// Her 25 puanda 3 soru ileri kaydır
+		const newLevel = Math.floor(this.score / 25);
+		const currentLevel = Math.floor(this.lastLevelScore / 25);
 
 		if (newLevel > currentLevel) {
 			// Seviye atladı - pencereyi 3 ileri kaydır
@@ -75,7 +75,7 @@ export class App {
 				this.currentWindowStart + 3,
 				Math.max(0, this.allQuestions.length - this.windowSize),
 			);
-			this.lastLevelScore = newLevel * 100;
+			this.lastLevelScore = newLevel * 25;
 		}
 	}
 
@@ -172,7 +172,7 @@ export class App {
 	}
 
 	generateNewQuestion() {
-		// Progresif zorluk sistemi - her 100 puanda pencereyi 3 ileri kaydır
+		// Progresif zorluk sistemi - her 25 puanda pencereyi 3 ileri kaydır
 		this.updateDifficultyLevel();
 
 		let selectedQuestion: { first: number; second: number };
